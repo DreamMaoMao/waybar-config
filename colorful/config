@@ -1,0 +1,152 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height": 40,
+    "spacing": 3,
+    "margin-bottom": -10,
+  
+    "modules-left": ["dwl/tags", "wlr/taskbar", "dwl/window"],
+    "modules-right": [
+      "custom/notification",
+      "tray",
+      "network",
+      "cpu",
+      "temperature",
+      "memory",
+      "clock",
+      "pulseaudio",
+      "backlight",
+      "battery"
+    ],
+  
+    "dwl/tags": {
+      "num-tags": 9,
+      "hide-vacant": true,
+      "tag-labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+  
+    "dwl/window": {
+      "format": "{title}"
+    },
+  
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "  ",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "sleep 0.1s && swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    },
+  
+    "wlr/taskbar": {
+      "format": "{icon}",
+      "icon-size": 24,
+      "all-outputs": false,
+      "tooltip-format": "{title}",
+      "markup": true,
+      "on-click": "activate",
+      "on-click-right": "close",
+      "ignore-list": ["Rofi", "wofi"]
+    },
+  
+    "pulseaudio": {
+      "interval": 1,
+      "scroll-step": 1,
+      "format": "{volume}%{icon}",
+      "format-bluetooth": "{volume}%",
+      "format-bluetooth-muted": "{volume}%",
+      "format-muted": "{volume}%{icon}",
+      "format-icons": {
+        "default": ["", "", ""]
+      },
+      "on-click": "amixer set Master toggle"
+    },
+  
+    "tray": {
+      "interval": 1,
+      "icon-size": 21,
+      "spacing": 10
+    },
+  
+    "clock": {
+      "format": "{:%H:%M} ",
+      "format-alt": "{:%A, %b %d} ",
+      "tooltip-format": "{:%Y}",
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+      }
+    },
+  
+    "cpu": {
+      "interval": 2,
+      "format": "{load}% "
+    },
+  
+    "memory": {
+      "interval": 2,
+      "format": "{}% 󰍛"
+    },
+  
+    "temperature": {
+      "thermal-zone": 2,
+      "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+      "critical-threshold": 10,
+      "format-critical": "{temperatureC}°C",
+      "format": ""
+    },
+  
+    "backlight": {
+      "interval": 2,
+      "device": "amdgpu_bl0",
+      "format": "{percent}% {icon}",
+      "format-icons": ["󰖔", "󰖨"],
+      "on-scroll-up": "~/.config/hypr/scripts/lightup",
+      "on-scroll-down": "~/.config/hypr/scripts/lightdown",
+      "smooth-scrolling-threshold": 1
+    },
+  
+    "battery": {
+      "bat": "BAT0",
+      "interval": 60,
+      "states": {
+        "warning": 30,
+        "critical": 10
+      },
+      "format": "{capacity}% {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "on-click-right": "bash ~/.config/eww/System-Menu/launch",
+      "on-click": "wlogout --protocol layer-shell -b 6"
+    },
+  
+    "network": {
+      "interval": 2,
+      "format-wifi": "{essid} ({signalStrength}%)\uf1eb",
+      "format-ethernet": "󰈀  {ifname}",
+      "format-linked": "\uf059 No IP ({ifname})",
+      "format-disconnected": "\uf071 Disconnected",
+      "tooltip-format": "{ifname} {ipaddr}/{cidr} via {gwaddr}",
+      "format-alt": "\uf1eb↓{bandwidthDownBytes} ↑{bandwidthUpBytes}"
+    }
+  }
