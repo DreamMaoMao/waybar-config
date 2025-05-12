@@ -3,7 +3,7 @@ Welcome to add your waybar rice here
 
 ## simple
  
-![7060CF82A293E524254928E9EB8A31CD](https://github.com/user-attachments/assets/e3aa29cf-b92e-4ae1-aadd-b3bafb02ddce)
+![image](https://github.com/user-attachments/assets/494c4fae-51f5-4c49-ab7e-4fe606d5294c)
 
 ## colorful
 
