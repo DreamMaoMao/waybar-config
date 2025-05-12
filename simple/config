@@ -10,23 +10,42 @@
     "height": 45,
     "modules-left": [
         "dwl/tags",
+        "wlr/taskbar",
         "dwl/window"
-    ],
-    "modules-center": [
-        // "cava",
-        // "custom/playerctl",
-        "pulseaudio",
-        "pulseaudio#microphone",
-        "backlight"
     ],
     "modules-right": [
         "tray",
+        "network",
+        "pulseaudio",
+        "cpu",
+        "temperature",
+        "backlight",
         "clock",
-        "idle_inhibitor",
+        "custom/notification",
         "custom/power"
     ],
     "dwl/window": {
         "format": "{}"
+    },
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "  ",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "sleep 0.1s && swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
     },
     "custom/updates": {
         "format": "󰚰 {}",
@@ -45,7 +64,28 @@
             "locked": "Capslock",
             "unlocked": ""
         }
-    },   
+    },
+    "cpu": {
+      "interval": 2,
+      "format": " {load}%"
+    },
+    "temperature": {
+      "thermal-zone": 2,
+      "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+      "critical-threshold": 10,
+      "format-critical": " {temperatureC}°C",
+      "format": ""
+    },
+    "wlr/taskbar": {
+      "format": "{icon}",
+      "icon-size": 22,
+      "all-outputs": false,
+      "tooltip-format": "{title}",
+      "markup": true,
+      "on-click": "activate",
+      "on-click-right": "close",
+      "ignore-list": ["Rofi", "wofi"]
+    },
     "backlight": {
       "interval": 2,
       "device": "amdgpu_bl0",
@@ -68,6 +108,15 @@
       "interval": 1,
       "icon-size": 21,
       "spacing": 10
+    },
+    "network": {
+      "interval": 2,
+      "format-wifi": "{essid} ({signalStrength}%)\uf1eb",
+      "format-ethernet": "󰈀 {ifname}",
+      "format-linked": "\uf059 No IP ({ifname})",
+      "format-disconnected": "\uf071 Disconnected",
+      "tooltip-format": "{ifname} {ipaddr}/{cidr} via {gwaddr}",
+      "format-alt": "↓{bandwidthDownBytes} ↑{bandwidthUpBytes}"
     },
     "clock": {
       "format": "{:%H:%M} ",
