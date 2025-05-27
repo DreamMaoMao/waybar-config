@@ -8,3 +8,7 @@ Welcome to add your waybar rice here
 ## colorful
 
 ![image](https://github.com/user-attachments/assets/32f2f2fa-de48-4818-a837-9d45b08041b5)
+
+## cool
+
+![image](https://github.com/user-attachments/assets/1f967886-0aec-42ec-8bb1-6f8c92f30771)
